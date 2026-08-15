@@ -1,6 +1,6 @@
 {
   "name": "rehype-stay",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Emit an HTML id= per markstay stay so doc.md#stay-id deep links resolve in a browser",
   "type": "module",
   "license": "MIT",
@@ -44,7 +44,7 @@
     "node": ">=22"
   },
   "dependencies": {
-    "remark-stay": "^0.1.2"
+    "remark-stay": "^0.2.0"
   },
   "devDependencies": {
     "unified": "^11.0.5",

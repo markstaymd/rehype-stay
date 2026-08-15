@@ -3,7 +3,7 @@
 [![npm](https://img.shields.io/npm/v/rehype-stay)](https://www.npmjs.com/package/rehype-stay)
 [![bundle size](https://img.shields.io/bundlephobia/minzip/rehype-stay)](https://bundlephobia.com/package/rehype-stay)
 [![tests](https://img.shields.io/github/actions/workflow/status/markstaymd/rehype-stay/test.yml?label=tests)](https://github.com/markstaymd/rehype-stay/actions/workflows/test.yml)
-[![spec](https://img.shields.io/badge/spec-v1.1-blue)](https://markstay.org)
+[![spec](https://img.shields.io/badge/spec-v1.2-blue)](https://markstay.org)
 ![License](https://img.shields.io/npm/l/rehype-stay)
 
 Make a [markstay](https://markstay.org) deep link work in a browser. The markstay
@@ -118,7 +118,7 @@ A stay bound to a fenced code block lands the id on the inner `<code>` (mdast
 `code` becomes `<pre><code>`). The fragment still resolves; the scroll target is
 the `<code>` element.
 
-## Out of scope (v0.1)
+## Out of scope (still, at 0.2)
 
 - The rehype-only mode (scan an existing hast tree for stay comments) is a
   follow-up, for pipelines that already hold HTML/HAST.
