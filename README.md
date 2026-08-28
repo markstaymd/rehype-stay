@@ -3,7 +3,7 @@
 [![npm](https://img.shields.io/npm/v/rehype-stay)](https://www.npmjs.com/package/rehype-stay)
 [![bundle size](https://img.shields.io/bundlephobia/minzip/rehype-stay)](https://bundlephobia.com/package/rehype-stay)
 [![tests](https://img.shields.io/github/actions/workflow/status/markstaymd/rehype-stay/test.yml?label=tests)](https://github.com/markstaymd/rehype-stay/actions/workflows/test.yml)
-[![spec](https://img.shields.io/badge/spec-v1.2-blue)](https://markstay.org)
+[![spec](https://img.shields.io/badge/spec-v1.4-blue)](https://markstay.org)
 ![License](https://img.shields.io/npm/l/rehype-stay)
 
 Make a [markstay](https://markstay.org) deep link work in a browser. The markstay
@@ -15,6 +15,13 @@ It does not fork the algorithm: attachment comes from
 [`remark-stay`](https://www.npmjs.com/package/remark-stay)'s tree segmentation, so
 which block a stay binds to is identical to the rest of the markstay
 implementations.
+
+**Child-block identity (§5.5) is not implemented here.** Version 1.3 lets a direct list
+item carry its own stay under the reserved `subhash` key, and §16 makes segmenting and
+resolving those **optional**. What §16 makes mandatory for every tool is the write-path
+shim, which this package honours: a `subhash` marker is preserved verbatim, never given
+a container hash, and never counted as its block's stay. The Python reference implements
+the section itself.
 
 ## How it works (and why it is a remark plugin)
 
