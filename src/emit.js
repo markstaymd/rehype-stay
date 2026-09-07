@@ -63,14 +63,15 @@ export function attachIds(tree, source, opts = {}) {
   const { blocks, findings: lintFindings } = lintTree(tree, source, { mdx });
   const findings = [...lintFindings];
   const attached = [];
-  // An id's fate is decided at its FIRST well-formed occurrence in document order;
-  // every later occurrence is a duplicate (§7) and is never emitted. This also
-  // guarantees no duplicate HTML id: setId() runs at most once per id.
+  // An id's fate is decided at its first well-formed block-stay occurrence in
+  // document order. A marker carrying `subhash` is lexical child identity, not a
+  // block stay (§16), so it neither emits nor claims the id. Later block-stay
+  // occurrences remain duplicates (§7) and are never emitted.
   const claimed = new Set();
 
   for (const b of blocks) {
     if (b.index < 0 || !b.node) continue; // orphan marker chunk: lint already flagged it
-    const wellFormed = b.markers.filter((m) => !m.malformed && m.id);
+    const wellFormed = b.markers.filter((m) => !m.malformed && m.id && !m.hasSubhash);
     if (wellFormed.length === 0) continue;
 
     const nt = nodeType(b.node);

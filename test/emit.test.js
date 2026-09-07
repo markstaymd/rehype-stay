@@ -47,6 +47,36 @@ test("list marker -> id on the whole list (§5.1)", async () => {
   assert.match(html, /<ul id="list1">/);
 });
 
+test("child marker does not emit on its container; the parent stay does", () => {
+  const md = "- child <!-- stay:child subhash=bogus -->\n<!-- stay:parent -->\n";
+  const { tree, source } = toMdast(md);
+  const { attached } = attachIds(tree, source);
+  assert.deepEqual(attached.map((entry) => [entry.id, entry.action]), [["parent", "set"]]);
+  assert.equal(tree.children[0].data.hProperties.id, "parent");
+});
+
+test("child marker does not claim an id needed by a later block stay", () => {
+  const md = [
+    "- child <!-- stay:same subhash=bogus -->",
+    "",
+    "Later block. <!-- stay:same -->",
+  ].join("\n");
+  const { tree, source } = toMdast(md);
+  const { attached, findings } = attachIds(tree, source);
+  assert.deepEqual(attached.map((entry) => [entry.id, entry.action]), [["same", "set"]]);
+  assert.equal(tree.children[1].data.hProperties.id, "same");
+  assert.ok(findings.some((finding) => finding.code === "DUPLICATE_ID"),
+    "the lexical duplicate remains a lint finding");
+});
+
+test("a custom x-subhash key remains eligible for HTML id emission", () => {
+  const md = "Extension. <!-- stay:extension x-subhash=sha256:abcd -->";
+  const { tree, source } = toMdast(md);
+  const { attached } = attachIds(tree, source);
+  assert.deepEqual(attached.map((entry) => [entry.id, entry.action]), [["extension", "set"]]);
+  assert.equal(tree.children[0].data.hProperties.id, "extension");
+});
+
 test("marker-shaped text inside a fence is never an id (§5.2)", async () => {
   const html = await toHtml("```js\n// <!-- stay:notamarker -->\nconst x = 1;\n```");
   assert.ok(!html.includes('id="notamarker"'), "fence-internal marker text must not emit an id");

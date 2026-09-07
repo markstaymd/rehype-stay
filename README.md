@@ -3,7 +3,7 @@
 [![npm](https://img.shields.io/npm/v/rehype-stay)](https://www.npmjs.com/package/rehype-stay)
 [![bundle size](https://img.shields.io/bundlephobia/minzip/rehype-stay)](https://bundlephobia.com/package/rehype-stay)
 [![tests](https://img.shields.io/github/actions/workflow/status/markstaymd/rehype-stay/test.yml?label=tests)](https://github.com/markstaymd/rehype-stay/actions/workflows/test.yml)
-[![spec](https://img.shields.io/badge/spec-v1.5-blue)](https://markstay.org)
+[![spec](https://img.shields.io/badge/spec-v1.6-blue)](https://markstay.org)
 ![License](https://img.shields.io/npm/l/rehype-stay)
 
 Make a [markstay](https://markstay.org) deep link work in a browser. The markstay
@@ -16,12 +16,14 @@ It does not fork the algorithm: attachment comes from
 which block a stay binds to is identical to the rest of the markstay
 implementations.
 
-**Child-block identity (§5.5) is not implemented here.** Version 1.3 lets a direct list
-item carry its own stay under the reserved `subhash` key, and §16 makes segmenting and
-resolving those **optional**. What §16 makes mandatory for every tool is the write-path
-shim, which this package honours: a `subhash` marker is preserved verbatim, never given
-a container hash, and never counted as its block's stay. The Python reference implements
-the section itself.
+**Child-block identity (§§5.5-5.6) is not implemented here.** Version 1.3 lets a
+direct list item carry its own stay under the reserved `subhash` key, and version 1.6
+does the same for a table body row. Section 16 makes segmenting and resolving children
+**optional**, but its block non-attribution rule is mandatory. This package never emits
+an HTML id for a marker carrying the exact `subhash` key and does not let that marker
+claim the id before a later block stay, even when the value is invalid; a custom key
+such as `x-subhash` remains ordinary block metadata. The Python reference implements
+the child sections themselves.
 
 ## How it works (and why it is a remark plugin)
 
