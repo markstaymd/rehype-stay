@@ -3,7 +3,7 @@
 [![npm](https://img.shields.io/npm/v/rehype-stay)](https://www.npmjs.com/package/rehype-stay)
 [![bundle size](https://img.shields.io/bundlephobia/minzip/rehype-stay)](https://bundlephobia.com/package/rehype-stay)
 [![tests](https://img.shields.io/github/actions/workflow/status/markstaymd/rehype-stay/test.yml?label=tests)](https://github.com/markstaymd/rehype-stay/actions/workflows/test.yml)
-[![spec](https://img.shields.io/badge/spec-v1.7-blue)](https://markstay.org)
+[![spec](https://img.shields.io/badge/spec-v1.8-blue)](https://markstay.org)
 ![License](https://img.shields.io/npm/l/rehype-stay)
 
 Make a [markstay](https://markstay.org) deep link work in a browser. The markstay
